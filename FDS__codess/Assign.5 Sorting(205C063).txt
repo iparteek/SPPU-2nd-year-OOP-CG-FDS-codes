@@ -1,0 +1,37 @@
+list1 = []
+a = int(input("Enter the total no. of students in 1st year: "))
+for i in range(1,a+1):
+        b = float(input("Enter %ith student 1st year percentage: " %(i)))
+        list1.append(b)
+
+#Selection Sort:
+def selectionsort(list1):  #Function def
+        for i in range(0,a-1):
+                for j in range(i+1,a):
+                        if list1[i]<list1[j]:  #Checking condition
+                                (list1[i],list1[j]) = (list1[j],list1[i]) #Swapping at last
+        print("\nSorted Data by Selection Sort is:")
+        print(list1[::-1]) #Sorted Array
+
+#Bubble Sort:
+def bubblesort(): #Function def
+        for i in range(a-1):
+                for j in range(0,a-i-1):
+                        if list1[j]>list1[j+1]: #Checking adjacent Data
+                                list1[j],list1[j+1] = list1[j+1],list1[j] #Swapping of Data if condition is True
+        print("\nSorted Data by Bubble Sort is:")
+        print(list1) #Sorted Array
+        print("Top five scores are: ",list1[-5:a],end = ",")
+
+print("\nChoose the method by which you want to sort the data.")
+print("1.Selection Sort\n2.Bubble Sort\n3.Quit")
+while(1):
+        choice = int(input("\nEnter your Choice:"))
+        if choice == 1:
+                selectionsort(list1)  #Calling of Function
+        elif choice == 2:
+                bubblesort()   #Calling of Function
+        elif choice == 3:
+                quit()
+        else:
+                print("Invalid Choice")

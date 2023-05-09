@@ -1,0 +1,125 @@
+#include<iostream>
+#define max 10
+using namespace std ;
+
+class CircularQueue
+{
+    int front ;
+    int rear ;
+    int orders[max] ;
+    public :
+        CircularQueue()
+        {
+            front = -1 ;
+            rear = -1 ;
+        }
+
+        bool isFull()
+        {
+            if((front == 0 and rear == max - 1) or(rear = front - 1))
+                return 1 ;
+            else
+                return 0 ;
+        }
+
+        bool isEmpty()
+        {
+            if(front == -1)
+                return 1 ;
+            else
+                return 0 ;
+        }
+
+        void push(int id)
+        {
+            if((front == 0 and rear == max - 1) or (rear == front - 1))
+                cout << "Cafe is full , please wait for some time \n" ;
+            else
+            {
+                if(front == -1)
+                {
+                    front = 0 ;
+                    rear = 0 ;
+                    orders[rear] = id ;
+                }
+                else
+                {
+                    rear ++ ;
+                    orders[rear] = id ;
+                }
+            }
+        }
+
+        void pop()
+        {
+            if(front == -1)
+                cout << "No current orders \n" ;
+            else
+            {
+                cout << "order no " << orders[front] << " is served :\n" ;
+                if(front == rear)
+                {
+                    front = -1 ;
+                    rear = -1 ;
+                }
+                else
+                {
+                    front ++ ;
+                }
+            }
+        }
+
+        void display()
+        {
+            int i = 0 ;
+            if(front == -1)
+                cout << "No current orders \n" ;
+            else
+            {
+                cout << "order id's :\n" ;
+                for(i = front;i < rear ;i++)
+                {
+                    cout << orders[i] << " " ;
+                }
+                cout << orders[rear] << endl ;
+            }
+        }
+
+};
+
+int main()
+{
+    CircularQueue cq ;
+    int choice ;
+    int orderId = 1 ;
+    while(1)
+    {
+        cout << "Enter 1 to accept order \nEnter 2 to serve order \nEnter 3 to display orders \nEnter 4 to exit \n" ;
+        cin >> choice ;
+        switch(choice)
+        {
+            case 1:
+            {
+                cout << "Order is accepted , order id is " << orderId << "\n" ; 
+                cq.push(orderId) ;
+                orderId ++ ;
+                break ;
+            }
+            case 2:
+            {
+                cq.pop() ;
+                break ;
+            }
+            case 3:
+            {
+                cq.display() ;
+                break ;
+            }
+            case 4:
+            {
+                exit (0) ;
+            }
+        }
+    }
+    return 0 ;
+}

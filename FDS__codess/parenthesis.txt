@@ -1,0 +1,103 @@
+#include<iostream>
+using namespace std ;
+
+class Stack
+{
+    string str;
+    int top ;
+    public:
+        Stack()
+        {
+            top = -1 ;
+        }
+
+        bool isEmpty()
+        {
+            if(top == -1)
+            {
+                return 1 ;
+            }
+            else 
+            {
+                return 0 ;
+            }
+        }
+
+        bool isFull()
+        {
+            if(top == str.length() - 1)
+            {
+                return 1 ;
+            }
+            else
+            {
+                return 0 ;
+            }
+        }
+
+        void push(char ch)
+        {
+            if(!isFull())
+            {
+                top ++ ;
+                str[top] = ch ;
+            }
+        } 
+
+        char pop()
+        {
+            if(!isEmpty())
+            {
+                char ch = str[top] ;
+                top -- ;
+                return ch ;
+            }
+            else
+            {
+                return '\0' ;
+            }
+        }
+     
+        void checkParenthesis()
+        {
+            cout << "Enter a expression to check whether it is well parenthesized or not :\n" ;
+            cin >> str ;
+            char ch ;
+            bool flag = 0 ;
+            for(int i = 0;str[i] != '\0';i++)
+            {
+                if(str[i] == '(' || str[i] == '[' || str[i] == '{' )
+                {
+                    push(str[i]) ;
+                }
+                if(str[i] == ')' || str[i] == ']' || str[i] == '}' )
+                {
+                    ch = pop() ;
+                    if((str[i] == ')' and ch != '(') || (str[i] == ']' and ch != '[' ) || (str[i] == '}' and ch != '{' ))
+                    {
+                        cout << "The expression in not parenthesized at " << i << " = " << str[i] << endl ;
+                        flag = 1 ;
+                        break ;
+                    }
+                }
+            }
+            if((isEmpty() == 1) and flag == 0)
+            {
+            cout << "The given expression is well parenthesized :\n" ;
+            }
+        }
+
+};
+
+int main()
+{
+    int choice ;
+    do
+    {
+        Stack s ;
+        s.checkParenthesis() ;
+        cout << "Enter 1 to continue \nEnter 0 to exit :\n" ;
+        cin >> choice ;
+    } while (choice != 0);
+    return 0 ;
+}

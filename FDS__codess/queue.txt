@@ -1,0 +1,107 @@
+/*
+Queues are frequently used in computer programming, and a typical example is the 
+creation of a job queue by an operating system. If the operating system does not use 
+priorities, then the jobs are processed in the order they enter the system. Write C++ 
+program for simulating job queue. Write functions to add job and delete job from queue.
+*/
+#include<iostream>
+#define max 1000
+using namespace std ;
+
+class Queue
+{
+    int front,rear ;
+    int arr[max] ;
+    public :
+    Queue()
+    {
+        front = 0 ;
+        rear = 0 ;
+    }
+
+    bool isFull()
+    {
+        if(rear == max - 1)
+            return 1 ;
+        else
+            return 0 ;
+    }
+
+    bool isEmpty()
+    {
+        if(front == rear)
+            return 1 ;
+        else
+            return 0 ;    
+
+    }
+
+    void push(int data)
+    {
+        if(!isFull())
+        {
+            arr[rear] = data ;
+            rear ++ ;
+        }
+    }
+
+    void pop()
+    {
+        if(!isEmpty())
+        {
+            front ++ ;
+            if(front == rear)
+            {
+                front = 0 ;
+                rear = 0 ;
+            }
+        }
+    }
+
+    void display()
+    {
+        for(int i = front;i < rear;i++)
+        {
+            cout << arr[i] << " " ;
+        }
+        cout << endl ;
+    }
+};
+
+int main()
+{
+    Queue q ;
+    int choice ;
+    while(1)
+    {
+        cout << "Enter 1 to add job \nEnter 2 to delete job \nEnter 3 to display job \nEnter 4 to exit \n" ;
+        cin >> choice ;
+        cout << "\n" ;
+        switch(choice)
+        {
+            case 1:
+            {
+                int job ;
+                cout << "Enter job to insert :\n" ;
+                cin >> job ;
+                q.push(job) ;
+                break ;
+            }
+            case 2:
+            {
+                q.pop() ;
+                break ;
+            }
+            case 3:
+            {
+                q.display() ;
+                break ;
+            }
+            case 4:
+            {
+                exit(0) ;
+            }
+        }
+    }
+
+}

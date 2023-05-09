@@ -1,0 +1,185 @@
+/*
+A double-ended queue (deque) is a linear list in which additions and deletions may be 
+made at either end. Obtain a data representation mapping a deque into a onedimensional array. Write C++ program to simulate deque with functions to add and 
+delete elements from either end of the deque.
+*/
+#include<iostream>
+#include<queue>
+#define max 10
+using namespace std;
+
+class Dequeue
+{
+    int front ;
+    int rear ;
+    int data[max] ;
+    public:
+        Dequeue()
+        {
+            front = -1 ;
+            rear = -1 ;
+        }
+
+        bool isFull()
+        {
+            if((front == 0 and rear == max - 1) or (rear == front - 1))
+                return 1 ;
+            else
+                return 0 ;
+        }
+
+        bool isEmpty()
+        {
+            if(front == -1)
+                return 1 ;
+            else
+                return 0 ;
+        } 
+
+        void pushFront(int value)
+        {
+            if(!isFull())
+            {
+                if(front == -1)
+                {
+                    front = 0 ;
+                    rear = 0 ;
+                }
+                else if(front == 0)
+                {
+                    front = max - 1 ;
+                }
+                else
+                {
+                    front -- ;
+                }
+                data[front] = value ;
+            }
+        }
+
+        void pushBack(int value)
+        {
+            if(!isFull())
+            {
+                if(front == -1)
+                {
+                    front = 0 ;
+                    rear = 0 ;
+                }
+                else if((rear == max - 1) and front != 0)
+                {
+                    rear = 0 ;
+                }
+                else
+                {
+                    rear ++ ;
+                }
+                data[rear] = value ;
+            }
+        } 
+
+        void popFront()
+        {
+            if(!isEmpty())
+            {
+                if(front == max -1)
+                {
+                    front = 0 ;
+                }
+                else if(front == rear)
+                {
+                    front = -1 ;
+                    rear = -1 ;
+                }
+                else
+                {
+                    front ++ ;
+                }
+            }
+        }  
+
+        void popBack()
+        {
+            if(!isEmpty())
+            {
+                if(front == rear)
+                {
+                    front = -1 ;
+                    rear = -1 ;
+                }
+                else if(rear == 0)
+                {
+                    rear = max - 1 ;
+                }
+                else
+                {
+                    rear -- ;
+                }
+            }
+        }
+        void getFront()
+        {
+            if(!isEmpty())
+                cout << data[front] << endl ;
+        }      
+
+        void getBack()
+        {
+            if(!isEmpty())
+                cout << data[rear] << endl ;
+        }
+};
+
+int main()
+{
+    Dequeue d ;
+    int value ;
+    int choice ;
+    while(1)
+    {
+        cout << "Enter 1 to push at front \nEnter 2 to push at back \nEnter 3 to pop at front \nEnter 4 to pop at back\nEnter 5 to get front \nEnter 6 to get back\nEnter 7 to exit \n" ;
+        cin >> choice ;
+        switch(choice)
+        {
+            case 1:
+            {
+                cout << "Enter value to insert :\n" ;
+                cin >> value ;
+                d.pushFront(value) ;
+                break ;
+            }
+            case 2:
+            {
+                cout << "Enter value to insert :\n" ;
+                cin >> value ;
+                d.pushBack(value) ;
+                break ;
+            }
+            case 3:
+            {
+                d.popFront() ;
+                break ;
+            }
+            case 4:
+            {
+                d.popBack() ;
+                break ;
+            }
+            case 5:
+            {
+                d.getFront() ;
+                break ;
+            }
+            case 6:
+            {
+                d.getBack() ;
+                break ;
+            }
+            case 7:
+            {
+                exit(0) ;
+            }
+        }
+    }
+    return 0 ;
+}
